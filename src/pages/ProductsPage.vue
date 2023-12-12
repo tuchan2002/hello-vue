@@ -1,7 +1,7 @@
 <template>
   <h1>Products Page</h1>
-  <div v-if="products.length > 0">
-    <div v-for="product in products" :key="product.id">
+  <div v-if="productsFiltered.length > 0">
+    <div v-for="product in productsFiltered" :key="product.id">
       <router-link :to="`/products/${product.id}`">{{ product.title }}</router-link>
     </div>
   </div>
@@ -12,13 +12,18 @@
 export default {
   data() {
     return {
-      products: []
+    }
+  },
+  computed: {
+    products() {
+      return this.$store.state.products
+    },
+    productsFiltered() {
+      return this.$store.getters.productsFiltered
     }
   },
   created() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(data => this.products = data)
+    this.$store.dispatch("fetchAllProducts");
   }
 }
 </script>

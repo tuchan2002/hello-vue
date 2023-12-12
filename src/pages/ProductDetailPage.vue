@@ -1,8 +1,8 @@
 <template>
   <div v-if="product">
-    <h1>Product Detail Page</h1>
+    <h1>Product Detail Page: {{ product.id }}</h1>
     <h1>Name: {{ product.title }}</h1>
-    <h3>Description: {{ product.body }}</h3>
+    <h3>Description: {{ product.description }}</h3>
   </div>
   <h1 v-else>Loading...</h1>
 </template>
@@ -11,13 +11,15 @@
 export default {
   data() {
     return {
-      product: null
+    }
+  },
+  computed: {
+    product() {
+      return this.$store.state.product
     }
   },
   created() {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${this.$route.params.id}`)
-      .then(res => res.json())
-      .then(data => this.product = data)
+    this.$store.dispatch("fetchProduct", {productId: this.$route.params.id});
   }
 }
 </script>
