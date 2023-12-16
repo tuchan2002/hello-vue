@@ -21,9 +21,6 @@ export default {
     productsFiltered() {
       return this.$store.getters.productsFiltered
     }
-  },
-  created() {
-    this.$store.dispatch("products/fetchAllProducts");
   }
 }
 </script>
