@@ -1,7 +1,7 @@
 <template>
   <h1>Products Page</h1>
-  <div v-if="productsFiltered.length > 0">
-    <div v-for="product in productsFiltered" :key="product.id">
+  <div v-if="products.length > 0">
+    <div v-for="product in products" :key="product.id">
       <router-link :to="`/products/${product.id}`">{{ product.title }}</router-link>
     </div>
   </div>
@@ -16,14 +16,14 @@ export default {
   },
   computed: {
     products() {
-      return this.$store.state.products
+      return this.$store.getters['products/products']
     },
     productsFiltered() {
       return this.$store.getters.productsFiltered
     }
   },
   created() {
-    this.$store.dispatch("fetchAllProducts");
+    this.$store.dispatch("products/fetchAllProducts");
   }
 }
 </script>

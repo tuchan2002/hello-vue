@@ -15,11 +15,11 @@ export default {
   },
   computed: {
     product() {
-      return this.$store.state.product
+      return this.$store.getters['products/product']
     }
   },
   created() {
-    this.$store.dispatch("fetchProduct", {productId: this.$route.params.id});
+    this.$store.dispatch("products/fetchProduct", {productId: this.$route.params.id});
   }
 }
 </script>
