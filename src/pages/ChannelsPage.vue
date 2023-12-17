@@ -25,7 +25,8 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 export default {
   data() {
     return {
-      messages: []
+      messages: [],
+      snapshotListener: null,
     }
   },
   computed: {
@@ -36,26 +37,37 @@ export default {
       return this.$store.getters['channels/selectedChannel']
     }
   },
+  watch: {
+    selectedChannel: {
+      handler(newSelectedChannel) {
+        if (newSelectedChannel) {
+          if (this.snapshotListener) {
+            this.snapshotListener();
+          }
+
+          const selectedChannelId = newSelectedChannel.id;
+          
+          const q = query(
+            collection(db, 'messages'),
+            where('channelId', '==', selectedChannelId),
+            orderBy('createdAt')
+          );
+
+          this.snapshotListener = onSnapshot(q, (snapshot) => {
+            const documents = snapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id
+            }));
+            this.messages = documents
+          });
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
     handleClickChannel(channelId) {
       this.$store.dispatch("channels/selectChannel", { channelId });
-
-      const q = query(
-        collection(db, 'messages'),
-        where('channelId', '==', channelId),
-        orderBy('createdAt')
-      );
-
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const documents = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-
-        this.messages = documents
-      });
-
-      return unsubscribe;
     }
   },
   mounted() {
