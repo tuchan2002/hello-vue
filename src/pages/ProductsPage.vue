@@ -1,5 +1,4 @@
 <template>
-  <h1>Products Page</h1>
   <div v-if="products.length > 0">
     <div v-for="product in products" :key="product.id">
       <router-link :to="`/products/${product.id}`">{{ product.title }}</router-link>

@@ -3,11 +3,15 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 
 const state = () => ( {
   channels: [],
+  selectedChannel: null,
 })
 
 const getters = {
   channels(state) {
     return state.channels
+  },
+  selectedChannel(state) {
+    return state.selectedChannel
   }
 }
 

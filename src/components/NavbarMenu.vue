@@ -39,5 +39,17 @@ export default {
 .navbar {
   display: flex;
   gap: 25px;
+  padding: 10px;
+  background-color: burlywood;
+  margin-bottom: 20px;
+}
+
+.navbar > * {
+  border: 2px solid salmon;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: black;
+  text-decoration: none;
+  color: white
 }
 </style>

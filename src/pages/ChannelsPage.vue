@@ -1,5 +1,4 @@
 <template>
-  <h1>Channels Page</h1>
   <div v-if="channels.length > 0">
     <div v-for="channel in channels" :key="channel.id">
       <h3>{{ channel.name }}</h3>
