@@ -30,16 +30,22 @@ const actions = {
       context.commit('setRealtimeChannels', documents)
     });
 
-    console.log('unsubscribe', unsubscribe);
-
     return unsubscribe;
   },
+  selectChannel(context, { channelId }) {
+    context.commit('selectChannel', channelId)
+  }
 }
 
 const mutations = {
   setRealtimeChannels(state, payload) {
     state.channels = payload
   },
+  selectChannel(state, payload) {
+    state.selectedChannel = state.channels.find(
+      (channel) => channel.id === payload
+    )
+  }
 }
 
 export default {

@@ -41,12 +41,11 @@ export default {
   gap: 25px;
   padding: 10px;
   background-color: burlywood;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .navbar > * {
   border: 2px solid salmon;
-  border-radius: 10px;
   padding: 10px;
   background-color: black;
   text-decoration: none;
